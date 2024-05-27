@@ -1,0 +1,19 @@
+[package]
+name = "graphql-postgres-api"
+version = "0.1.0"
+edition = "2021"
+
+[workspace]
+members = [".", "migration"]
+
+[dependencies]
+actix-web = "4.6.0"
+actix-web-lab="0.20.2"
+migration = { path = "migration" } 
+dotenvy = "0.15.0"
+tokio = { version = "1.0", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+sea-orm = { version = "0.12", features = [ "sqlx-postgres", "runtime-tokio-rustls", "with-chrono", "macros" ] }
+chrono = { version = "^0.4.13", features= ["serde"] }
+thiserror = "1.0.0"
