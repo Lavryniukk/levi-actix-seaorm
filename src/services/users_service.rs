@@ -13,6 +13,12 @@ pub struct CreateUserInput {
     pub password: String,
 }
 
+pub struct UpdateUserDto {
+    pub name: String,
+    pub password: String,
+    pub id: i32,
+}
+
 pub struct UsersService {}
 
 impl UsersService {
@@ -50,12 +56,12 @@ impl UsersService {
         UserEntity::find().all(connection).await
     }
 
-    pub async fn _update_user(
+    pub async fn update_user(
         connection: &DbConn,
-        id: i32,
-        name: String,
-        password: String
+        update_user_dto: UpdateUserDto
+        
     ) -> Result<User, DbErr> {
+        let UpdateUserDto { name, password, id } = update_user_dto;
         let user = UserEntity::find_by_id(id).one(connection).await?;
         if let Some(user) = user {
             let mut active_user: user::ActiveModel = user.into();
